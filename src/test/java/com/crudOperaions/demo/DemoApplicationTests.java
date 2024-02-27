@@ -24,5 +24,17 @@ class DemoApplicationTests {
 		c.setName("Adel");
 		repository.save(c);
 		assertEquals(1, repository.findAll().size());
+
+		Client loadedClient = repository.findById(c.getId()).get();
+		assertEquals("Adel", loadedClient.getName());
+		assertEquals(20, loadedClient.getAge());
+		c.setName("Mourad");
+
+		repository.save(c);
+		Client updatedClient = repository.findById(c.getId()).get();
+		assertEquals("Mourad", updatedClient.getName());
+		assertEquals(20, updatedClient.getAge());
+		repository.delete(c);
+		assertEquals( 0 ,repository.findAll().size());
 	}
 }
